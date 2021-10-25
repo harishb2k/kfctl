@@ -1,7 +1,9 @@
+https://www.kubeflow.org/docs/distributions/aws/deploy/install-kubeflow/
+
 ## Full build
 1) Set env variable
 ```shell
-export AWS_CLUSTER_NAME=harish-cluster
+export AWS_CLUSTER_NAME=harish-<somename>
 export AWS_REGION=ap-south-1
 export K8S_VERSION=1.18
 export EC2_INSTANCE_TYPE=m5.large
@@ -9,19 +11,21 @@ export EC2_INSTANCE_TYPE=m5.large
 
 2) Start cluster
 ```shell
-   cat << EOF > cluster.yaml
+cat << EOF > cluster.yaml
 ---
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
+
 metadata:
-name: ${AWS_CLUSTER_NAME}
-version: "${K8S_VERSION}"
-region: ${AWS_REGION}
+  name: ${AWS_CLUSTER_NAME}
+  version: "${K8S_VERSION}"
+  region: ${AWS_REGION}
+
 managedNodeGroups:
-- name: harish-delete-safe-kubeflow-mng
+- name: kubeflow-mng-${AWS_CLUSTER_NAME}
   desiredCapacity: 3
   instanceType: ${EC2_INSTANCE_TYPE}
-  EOF
+EOF
 ```
 ```shell
 eksctl create cluster -f cluster.yaml
@@ -38,35 +42,22 @@ aws iam list-roles \
 >>> Output => eksctl-something.... 
 ```
 
-5) Clone
+5) Run
 ```shell
-   git clone  https://github.com/harishb2k/kfctl.git
-   git checout v1.2-branch
-```
-7) Build docker and run
-```shell
->> docker build -t kf .
->> docker build  -f DockerfileFinal -t kff .
+docker run -it  -v ~/.kube/:/root/.kube -v ~/.aws:/root/.aws  harishb2k/kfctl /bin/bash
 
-Run:
->> docker run -it  -v ~/.kube/:/root/.kube -v ~/.aws:/root/.aws  kff /bin/bash
->> apt-get install -y awscli
->> Type 6 
->> Type 44
-
->> Go to /kubeflow-setup
-   Edit "kfctl_aws.yaml"
-   >> region: ap-south-1
-   enablePodIamPolicy: true
-   roles:
-   - <Role from step (4)>
-
+>> export AWS_CLUSTER_NAME=harish-<your cluster name>
+>> export AWS_REGION=ap-south-1
 >> export PATH=$PATH:/kubeflow-setup/
-
->>  kfctl apply -V -f kfctl_aws.yaml
+>> mkdir ${AWS_CLUSTER_NAME} && cd ${AWS_CLUSTER_NAME}
+>> cp ../kfctl_aws.yaml .
+>> kfctl apply -V -f kfctl_aws.yaml
 ```
 
-
+6) Get the end-point
+```shell
+kubectl get ingress -n istio-system
+```
 
 ### Build Cli -> not needed for docker setup
 ```shell
