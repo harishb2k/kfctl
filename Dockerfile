@@ -54,25 +54,3 @@ RUN make build-kfctl && \
     if [ "$(uname -m)" = "aarch64" ]; then \
         cp bin/arm64/kfctl bin/kfctl; \
     fi
-
-#**********************************************************************
-#
-# Final image base
-#
-
-FROM alpine:3.10.1 as barebones_base
-RUN mkdir -p /opt/kubeflow
-WORKDIR /opt/kubeflow
-
-#**********************************************************************
-#
-# kfctl
-#
-FROM barebones_base as kfctl
-
-COPY --from=kfctl_base /go/src/github.com/kubeflow/kfctl/bin/kfctl /usr/local/bin
-COPY --from=kfctl_base /go/src/github.com/kubeflow/kfctl/third_party /third_party
-COPY --from=kfctl_base /go/pkg/mod /third_party/vendor
-
-
-CMD ["/bin/bash", "-c", "trap : TERM INT; sleep infinity & wait"]
