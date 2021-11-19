@@ -6,3 +6,12 @@ Additionally, we have also introduced [Kubeflow Operator](./operator.md) in incu
 
 ### IMP
 Use branch "v1.2-branch". Instruction given in readme in v1.2-branch.
+
+
+### Build and run
+Make sure when you download the "kfctl_aws.yaml" file then comment "enablePodIamPolicy" property in the file.
+```shell
+go run cmd/kfctl/main.go apply -V -f <something>/<eks_cluster_name>/kfctl_aws.yaml 
+
+NOTE: this command may faile first time. Try again...
+```

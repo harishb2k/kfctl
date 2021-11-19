@@ -1,8 +1,12 @@
 module github.com/kubeflow/kfctl/v3
 
+replace (
+	github.com/Azure/go-autorest/autorest => github.com/Azure/go-autorest/autorest v0.9.3
+	github.com/Azure/go-autorest/autorest/adal => github.com/Azure/go-autorest/autorest/adal v0.9.3
+)
+
 require (
 	cloud.google.com/go v0.57.0
-	github.com/Azure/go-autorest v13.3.3+incompatible // indirect
 	github.com/MakeNowJust/heredoc v1.0.0 // indirect
 	github.com/Sirupsen/logrus v0.0.0-00010101000000-000000000000 // indirect
 	github.com/aws/aws-sdk-go v1.27.1
@@ -15,6 +19,7 @@ require (
 	github.com/elazarl/goproxy/ext v0.0.0-20190711103511-473e67f1d7d2 // indirect
 	github.com/fatih/color v1.7.0
 	github.com/ghodss/yaml v1.0.1-0.20190212211648-25d852aebe32
+	github.com/go-openapi/spec v0.19.5 // indirect
 	github.com/go-yaml/yaml v2.1.0+incompatible
 	github.com/gogo/protobuf v1.3.1
 	github.com/golangplus/testing v0.0.0-20180327235837-af21d9c3145e
@@ -44,6 +49,7 @@ require (
 	google.golang.org/api v0.25.0
 	google.golang.org/genproto v0.0.0-20200430143042-b979b6f78d84
 	gopkg.in/airbrake/gobrake.v2 v2.0.9 // indirect
+	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/gemnasium/logrus-airbrake-hook.v2 v2.1.2 // indirect
 	gopkg.in/yaml.v2 v2.2.8
 	k8s.io/api v0.17.0
@@ -51,10 +57,8 @@ require (
 	k8s.io/apimachinery v0.17.1
 	k8s.io/cli-runtime v0.0.0
 	k8s.io/client-go v12.0.0+incompatible
-	k8s.io/code-generator v0.18.1 // indirect
 	k8s.io/kubernetes v1.16.2
 	sigs.k8s.io/controller-runtime v0.4.0
-	sigs.k8s.io/kustomize/kyaml v0.1.10 // indirect
 	sigs.k8s.io/kustomize/v3 v3.2.0
 	sigs.k8s.io/yaml v1.1.0
 )
@@ -66,6 +70,7 @@ replace (
 	github.com/go-openapi/jsonreference => github.com/go-openapi/jsonreference v0.17.0
 	github.com/go-openapi/spec => github.com/go-openapi/spec v0.18.0
 	github.com/go-openapi/swag => github.com/go-openapi/swag v0.17.0
+	github.com/kubernetes-sigs/application => sigs.k8s.io/application v0.0.0-20190404151855-67ae7f915d4e
 	github.com/mitchellh/go-homedir => github.com/mitchellh/go-homedir v1.0.0
 	github.com/otiai10/copy => github.com/otiai10/copy v1.0.2
 	github.com/otiai10/mint => github.com/otiai10/mint v1.3.0
@@ -93,7 +98,6 @@ replace (
 	k8s.io/legacy-cloud-providers => k8s.io/legacy-cloud-providers v0.0.0-20190620090156-2138f2c9de18
 	k8s.io/metrics => k8s.io/metrics v0.0.0-20190620085625-3b22d835f165
 	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.0.0-20190620085408-1aef9010884e
-	github.com/kubernetes-sigs/application => sigs.k8s.io/application v0.0.0-20190404151855-67ae7f915d4e
 	sigs.k8s.io/controller-runtime => sigs.k8s.io/controller-runtime v0.2.0
 	sigs.k8s.io/kustomize/v3 => sigs.k8s.io/kustomize/v3 v3.2.0
 )
