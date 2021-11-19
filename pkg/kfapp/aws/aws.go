@@ -712,9 +712,11 @@ func (aws *Aws) Apply(resources kftypes.ResourceEnum) error {
 			}
 		}
 	} else if awsPluginSpec.GetEnablePodIamPolicy() {
-		return &kfapis.KfError{
-			Code:    int(kfapis.INVALID_ARGUMENT),
-			Message: fmt.Sprintf("IAM for Service Account is not supported on non-EKS cluster %v", err),
+		if false {
+			return &kfapis.KfError{
+				Code:    int(kfapis.INVALID_ARGUMENT),
+				Message: fmt.Sprintf("IAM for Service Account is not supported on non-EKS cluster %v", err),
+			}
 		}
 	}
 
